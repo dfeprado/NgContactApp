@@ -1,42 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Contact from 'src/classes/Contact';
 import { FilterFn } from '../array-filter.pipe';
+import { ContactService } from '../contact/contact.service';
 
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.css'],
 })
-export class ContactListComponent {
+export class ContactListComponent implements OnInit{
   contacts: Contact[] = []
 
-  customFilter: FilterFn = null
+  constructor(private contactService: ContactService) { }
 
-  constructor() { }
+  async ngOnInit(): Promise<void> {
+    this.contacts = await this.contactService.getAll()
+  }
 
   clearFilterIfNoTerm(searchTerm: string) {
     if (!searchTerm)
       this.doSearch('')
   }
 
-  doSearch(searchTerm: string) {
-    if (!searchTerm.trim()) {
-      this.customFilter = null
-      return
-    }
-
+  async doSearch(searchTerm: string) {
     const term = searchTerm.trim().toLowerCase()
-    this.customFilter = (e: any) => (e as Contact).name.toLowerCase().startsWith(term)
+    this.contacts = term ? await this.contactService.find({name: term}) : await this.contactService.getAll()
   }
 
-  removerContato(contact: Contact) {
+  async removerContato(contact: Contact) {
     const remove = confirm(`Tem certeza que deseja remover ${contact.name}?`)
     if (!remove)
       return
 
-    const idx = this.contacts.findIndex(e => e === contact)
-    if (idx !== -1)
-      this.contacts.splice(idx, 1)
+    this.contacts = await this.contactService.delete(contact)
   }
 
   startAddingContact() {
@@ -49,8 +45,7 @@ export class ContactListComponent {
     this.addContact(contactName, contactNumber || '')
   }
 
-  private addContact(name: string, number: string) {
-    this.contacts.push(new Contact(name, number))
+  private async addContact(name: string, number: string) {
+    this.contacts = await this.contactService.insert(new Contact(name, number))
   }
-
 }

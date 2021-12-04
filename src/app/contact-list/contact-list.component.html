@@ -10,7 +10,7 @@
 </div>
 <p *ngIf="!contacts.length">Nenhum contato cadastrado</p>
 <ul *ngIf="contacts.length">
-    <li *ngFor="let contact of (contacts | arrayFilter:customFilter)">
+    <li *ngFor="let contact of contacts">
         <app-contact [contact]="contact" (onRemove)="removerContato($event)">
             Hello!
             <span anotherOne>HAA</span>
