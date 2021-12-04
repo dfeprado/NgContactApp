@@ -1,7 +1,15 @@
 <h1>Contact list</h1>
 <button (click)="startAddingContact()">Add contact</button>
-<br><input type="text" placeholder="Search contact..." #search><button (click)="doSearch(search.value)">Search</button>
-<ul>
+<div>
+<input 
+    type="text" 
+    placeholder="Search contact" 
+    #search
+    (keyup.enter)="doSearch(search.value)"
+    (keyup)="clearFilterIfNoTerm(search.value)"/>
+</div>
+<p *ngIf="!contacts.length">Nenhum contato cadastrado</p>
+<ul *ngIf="contacts.length">
     <li *ngFor="let contact of (contacts | arrayFilter:customFilter)">
         <app-contact [contact]="contact" (onRemove)="removerContato($event)">
             Hello!

@@ -8,25 +8,25 @@ import { FilterFn } from '../array-filter.pipe';
   styleUrls: ['./contact-list.component.css'],
 })
 export class ContactListComponent {
-  contacts: Contact[] = [
-    new Contact('Daniel', '998517819'),
-    new Contact('Nayra', '11997544165'),
-    new Contact('Emerson', '')
-  ]
+  contacts: Contact[] = []
 
-  get customFilter(): FilterFn{
-    if (!this.searchTerm)
-      return null
-
-    return (e: any) => (e as Contact).name.toLowerCase().startsWith(this.searchTerm)
-  }
-
-  searchTerm = ''
+  customFilter: FilterFn = null
 
   constructor() { }
 
-  doSearch(term: string) {
-    this.searchTerm = term.trim().toLowerCase()
+  clearFilterIfNoTerm(searchTerm: string) {
+    if (!searchTerm)
+      this.doSearch('')
+  }
+
+  doSearch(searchTerm: string) {
+    if (!searchTerm.trim()) {
+      this.customFilter = null
+      return
+    }
+
+    const term = searchTerm.trim().toLowerCase()
+    this.customFilter = (e: any) => (e as Contact).name.toLowerCase().startsWith(term)
   }
 
   removerContato(contact: Contact) {
