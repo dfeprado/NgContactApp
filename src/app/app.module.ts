@@ -17,6 +17,11 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { FloatingFabComponent } from './floating-fab/floating-fab.component'
+import {MatCardModule} from '@angular/material/card'
+import {MatDialogModule} from '@angular/material/dialog';
+import { ContactDialogComponent } from './contact-dialog/contact-dialog.component'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input'
 
 @NgModule({
   declarations: [
@@ -27,7 +32,8 @@ import { FloatingFabComponent } from './floating-fab/floating-fab.component'
     CustomupperCasePipe,
     ArrayFilterPipe,
     ToolbarComponent,
-    FloatingFabComponent
+    FloatingFabComponent,
+    ContactDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,12 @@ import { FloatingFabComponent } from './floating-fab/floating-fab.component'
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
     
   ],
   providers: [{provide: ContactService, useClass: MemoryContactService}],

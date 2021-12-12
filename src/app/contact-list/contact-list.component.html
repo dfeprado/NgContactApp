@@ -18,10 +18,17 @@
     (keyup.enter)="doSearch(search.value)"
     (keyup)="clearFilterIfNoTerm(search.value)"/>
 </div> -->
-<p *ngIf="!contacts.length">There's no contacts registered</p>
-<ul *ngIf="contacts.length">
-    <li *ngFor="let contact of contacts">
-        <app-contact [contact]="contact" (onRemove)="removerContato($event)">
-        </app-contact>
-    </li>
-</ul>
+<section>
+
+    <p *ngIf="!contacts.length" style="text-align: center;">There's no contacts registered</p>
+
+    <div *ngIf="contacts.length">
+            <app-contact 
+                *ngFor="let contact of contacts" 
+                [contact]="contact" 
+                (onRemove)="removerContato($event)">
+    
+            </app-contact>
+    </div>
+    
+</section>

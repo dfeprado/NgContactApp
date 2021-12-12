@@ -10,10 +10,6 @@ export class ContactComponent {
   @Input() contact!: Contact
   @Output() onRemove = new EventEmitter<Contact>()
 
-  get contactNumber(): string {
-    return (this.contact.number && this.contact.number.trim()) || 'NO NUMBER'
-  }
-
   constructor() { }
 
   remover() {

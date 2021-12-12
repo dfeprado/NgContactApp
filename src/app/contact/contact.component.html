@@ -1,6 +1,13 @@
-<div>
-    <p>{{contact.name}}</p>
-    <p>{{contactNumber}}</p>
-    <button (click)="remover()">Remover</button>
-    <button (click)="atualizar()">Atualizar</button>
-</div>
+<mat-card class="card">
+    <mat-card-title>{{contact.name}}</mat-card-title>
+    <mat-card-content *ngIf="contact.number">{{contact.number}}</mat-card-content>
+    <mat-card-actions>
+
+        <button mat-button (click)="remover()">
+        
+            <mat-icon>delete</mat-icon>
+            
+        </button>
+
+    </mat-card-actions>
+</mat-card>

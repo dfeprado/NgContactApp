@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import Contact from 'src/classes/Contact';
+import { ContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { ContactService } from '../contact/contact.service';
+import { DialogPosition } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-contact-list',
@@ -10,10 +13,11 @@ import { ContactService } from '../contact/contact.service';
 export class ContactListComponent implements OnInit{
   contacts: Contact[] = []
 
-  constructor(private contactService: ContactService) { }
+  constructor(private contactService: ContactService, private dialog: MatDialog) { }
 
   async ngOnInit(): Promise<void> {
     this.contacts = await this.contactService.getAll()
+    this.startAddingContact()
   }
 
   // clearFilterIfNoTerm(searchTerm: string) {
@@ -35,16 +39,12 @@ export class ContactListComponent implements OnInit{
   }
 
   startAddingContact() {
-    const contactName = prompt('What is your contact name?')?.trim()
-    if (!contactName)
-      return
-
-    const contactNumber = prompt(`What is ${contactName}'s number?`)?.trim()
-
-    this.addContact(contactName, contactNumber || '')
-  }
-
-  private async addContact(name: string, number: string) {
-    this.contacts = await this.contactService.insert(new Contact(name, number))
+    this.dialog.open(ContactDialogComponent, {position: {top: '5em'}})
+      .afterClosed().subscribe({
+        next: async result => {
+          if (result)
+            this.contacts = await this.contactService.insert(new Contact(result.name, result.number))
+        }
+      })
   }
 }
