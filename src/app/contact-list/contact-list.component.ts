@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import Contact from 'src/classes/Contact';
-import { FilterFn } from '../array-filter.pipe';
 import { ContactService } from '../contact/contact.service';
 
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css'],
+  styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit{
   contacts: Contact[] = []
@@ -17,15 +16,15 @@ export class ContactListComponent implements OnInit{
     this.contacts = await this.contactService.getAll()
   }
 
-  clearFilterIfNoTerm(searchTerm: string) {
-    if (!searchTerm)
-      this.doSearch('')
-  }
+  // clearFilterIfNoTerm(searchTerm: string) {
+  //   if (!searchTerm)
+  //     this.doSearch('')
+  // }
 
-  async doSearch(searchTerm: string) {
-    const term = searchTerm.trim().toLowerCase()
-    this.contacts = term ? await this.contactService.find({name: term}) : await this.contactService.getAll()
-  }
+  // async doSearch(searchTerm: string) {
+  //   const term = searchTerm.trim().toLowerCase()
+  //   this.contacts = term ? await this.contactService.find({name: term}) : await this.contactService.getAll()
+  // }
 
   async removerContato(contact: Contact) {
     const remove = confirm(`Tem certeza que deseja remover ${contact.name}?`)

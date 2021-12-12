@@ -11,6 +11,12 @@ import { ContactComponent } from './contact/contact.component';
 import { CustomupperCasePipe } from './customupper-case.pipe';
 import { ArrayFilterPipe } from './array-filter.pipe';
 import { MemoryContactService } from './contact/memory-contact.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button'
+import {MatIconModule} from '@angular/material/icon'
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { FloatingFabComponent } from './floating-fab/floating-fab.component'
 
 @NgModule({
   declarations: [
@@ -19,13 +25,21 @@ import { MemoryContactService } from './contact/memory-contact.service';
     ContactComponent,
     AdDirective,
     CustomupperCasePipe,
-    ArrayFilterPipe
+    ArrayFilterPipe,
+    ToolbarComponent,
+    FloatingFabComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule
+    
   ],
   providers: [{provide: ContactService, useClass: MemoryContactService}],
+  exports: [MatButtonModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

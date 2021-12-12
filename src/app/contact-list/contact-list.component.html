@@ -1,19 +1,27 @@
-<h1>Contact list</h1>
-<button (click)="startAddingContact()">Add contact</button>
+<app-toolbar></app-toolbar>
+
+<app-floating-fab
+    (click)="startAddingContact()"
+    aria-label="Add new contact">
+
+    <mat-icon>
+        add
+    </mat-icon>
+
+</app-floating-fab>
+
 <div>
-<input 
+<!-- <input 
     type="text" 
     placeholder="Search contact" 
     #search
     (keyup.enter)="doSearch(search.value)"
     (keyup)="clearFilterIfNoTerm(search.value)"/>
-</div>
-<p *ngIf="!contacts.length">Nenhum contato cadastrado</p>
+</div> -->
+<p *ngIf="!contacts.length">There's no contacts registered</p>
 <ul *ngIf="contacts.length">
     <li *ngFor="let contact of contacts">
         <app-contact [contact]="contact" (onRemove)="removerContato($event)">
-            Hello!
-            <span anotherOne>HAA</span>
         </app-contact>
     </li>
 </ul>
