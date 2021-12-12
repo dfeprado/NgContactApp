@@ -17,7 +17,6 @@ export class ContactListComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.contacts = await this.contactService.getAll()
-    this.startAddingContact()
   }
 
   // clearFilterIfNoTerm(searchTerm: string) {

@@ -22,6 +22,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
+import { LocalStorageContactService } from './contact/local-storage-contact.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import {MatInputModule} from '@angular/material/input'
     FormsModule
     
   ],
-  providers: [{provide: ContactService, useClass: MemoryContactService}],
+  providers: [{provide: ContactService, useClass: LocalStorageContactService}],
   exports: [MatButtonModule],
   bootstrap: [AppComponent]
 })
